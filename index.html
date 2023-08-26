@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stop Watch</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="hero">
+        <h1 class="h">Stop Watch</h1>
+        <div class="container">
+            <div class="watch">
+                <div class="timer">
+                    <h1 class="time">00:00:00</h1>
+                </div>
+                <div class="options">
+                    <img src="stop.png" onclick="watchstop()">
+                    <img src="start.png" onclick="watchstart()" alt="">
+                    <img src="reset.png" onclick="watchreset()">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let [hours, minutes, seconds] = [0, 0, 0];
+        let display = document.querySelector(".time");
+        let timer = null;
+        function start() {
+            seconds++;
+            if (seconds == 60) {
+                seconds = 0;
+                minutes++;
+                if (minutes == 60) {
+                    minutes = 0;
+                    hours++;
+                }
+            }
+            let h = hours < 10 ? "0" + hours : hours;
+            let m = minutes < 10 ? "0" + minutes : minutes;
+            let s = seconds < 10 ? "0" + seconds : seconds;
+            display.innerHTML = h + ":" + m + ":" + s;
+        }
+
+        function watchstart() {
+            if (timer != null) {
+                clearInterval(timer);
+            }
+            timer = setInterval(start, 1000);
+        }
+        function watchstop() {
+            clearInterval(timer);
+        }
+        function watchreset() {
+            display.innerHTML = "00:00:00";
+            [seconds,minutes,hours] = [0,0,0];
+            clearInterval(timer);
+        }
+    </script>
+</body>
+
+</html>
